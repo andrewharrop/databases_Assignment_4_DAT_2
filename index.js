@@ -34,10 +34,8 @@ var connection = mysql.createConnection({
 //   })
 //   connection.connect(function(err) {
 //       if (err) throw err;
-//       console.log("Query connected");
 //       connection.query("SELECT * FROM region", function(err, result) {
 //           for (let i = 0; i < result.length; i++) {
-//               console.log(result[i].province)
 //           }
 
 //       })
@@ -54,7 +52,6 @@ app.get('/loggedIn', (req, res) => {
 app.get('/allusers', (req, res) => {
     connection.query("SELECT * FROM userinfo", function(err, result) {
         if (err) throw err;
-        //console.log(result)
         res.json({ result: result });
     })
 });
@@ -83,14 +80,10 @@ app.post('/register', (req, res) => {
     })
     if (!found) {
         connection.query("INSERT INTO userinfo (username, firstname, lastname,userpw,useremail) VALUES ('" + username + "'" + ",'" + firstname + "','" + lastname + "','" + password + "', '" + email + "')",
-            function(err, result) {
-                //if (err) console.log(err)
-                console.log("Success");
-            })
+            function(err, result) {})
     } else {
         //user already exists logic
     }
-    //console.log(loggedIn)
 
 })
 app.post('/logout', (req, res) => {
@@ -112,14 +105,40 @@ app.post('/login', (req, res) => {
             }
 
         }
-        // console.log(loggedIn)
         res.json({ status: loggedIn, user: storedUser })
     })
 
 })
 app.post('/delete', (req, res) => {
     let username = req.body.username;
-    connection.query()
+    // console.log(username)
+    exists = false;
+    connection.query("SELECT * FROM userinfo", (err, result) => {
+        if (err) console.log(err)
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].username == username) {
+                exists = true;
+                console.log(exists)
+
+
+            }
+        }
+        if (exists) {
+
+
+            // connection.query("DELETE FROM userinfo WHERE username='" + username + "'", (err, result) => {
+            //     if (err) console.log(err)
+            //     res.json({ status: true });
+            // });
+
+        } else {
+            res.json({ status: false });
+        }
+    })
+
+
+
+
 })
 
 app.listen(port, () => {

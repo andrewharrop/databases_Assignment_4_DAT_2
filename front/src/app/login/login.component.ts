@@ -51,12 +51,16 @@ setWeatherWhereIAm(){
 getData(data){
   return data.result;
 }
-
+getStatus(data:any){
+  return data.status
+}
 
 deleteUsername:String;
-deleteStatus:String;
+deleteStatus:Boolean;
 submitDelete(){
-
+  this.http.post('http://localhost:3000/delete', {username:this.deleteUsername}).subscribe(data=>{
+    this.deleteStatus=this.getStatus(data);
+  })
 }
 setDelete(){
   this.authTracker=1;
@@ -100,9 +104,7 @@ viewAllUsers(){
 }
 
 
-  getStatus(data:any){
-    return data.status
-  }
+ 
 
   ngOnInit(): void {
   }
@@ -137,7 +139,7 @@ viewWeatherWhereIAm(){
   }
   register(){
     this.http.post('http://localhost:3000/register', {username:this.username2, firstname:this.firstname , lastname:this.lastname, email:this.email, password:this.password2}).subscribe(data=>{
-      console.log(data);
+      //console.log(data);
     })
   }
   lSwitch(){
