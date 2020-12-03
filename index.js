@@ -50,6 +50,21 @@ var connection = mysql.createConnection({
 app.get('/loggedIn', (req, res) => {
     res.json({ status: loggedIn });
 })
+
+app.get('/allusers', (req, res) => {
+    connection.query("SELECT * FROM userinfo", function(err, result) {
+        if (err) throw err;
+        //console.log(result)
+        res.json({ result: result });
+    })
+});
+
+app.get('/allweather', (req, res) => {
+    connection.query("SELECT * FROM weather", (err, result) => {
+        if (err) throw err;
+        res.json({ result: result });
+    })
+})
 app.post('/register', (req, res) => {
     firstname = req.body.firstname;
     lastname = req.body.lastname;
@@ -93,14 +108,18 @@ app.post('/login', (req, res) => {
                 // res.json({ status: true });
                 // res.end()
                 loggedIn = true;
-                storedUser = username;
+                storedUser = result[i];
             }
 
         }
-        console.log(loggedIn)
-        res.json({ status: loggedIn })
+        // console.log(loggedIn)
+        res.json({ status: loggedIn, user: storedUser })
     })
 
+})
+app.post('/delete', (req, res) => {
+    let username = req.body.username;
+    connection.query()
 })
 
 app.listen(port, () => {

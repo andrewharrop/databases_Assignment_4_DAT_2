@@ -19,13 +19,52 @@
 </div>
 
 <ng-template #bigElse>
-    <button (click)="logout()">log out</button>
     <nav>
-        <a (click)="setHome(1)">Home</a>
-        <a>B</a>
+        <button>        <a (click)="setHome()">Home</a>
+        </button>
+        <button>        <a (click)="setDelete()">Delete a user</a>
+        </button>
+        <button>        <a (click)="setAddUser()">Add user</a>
+        </button>
+        <button>        <a (click)="setAddFeedback()">Feedback</a>
+        </button>
+        <button>        <a (click)="setWeatherWhereIAm()">Weather Where I am</a>
+        </button>
+        <button>        <a (click)="setAllWeather()">All Weather</a>
+</button>
+        <button><a (click)="viewAllUsers()">All Users</a></button>
+        <button (click)="logout()">log out</button>
 
     </nav>
-    <div>
+    <div [ngSwitch]="authTracker">
+        <div *ngSwitchCase="0">
+            Home: Home
+        </div>
+        <div *ngSwitchCase="1">Delete A User
+            <input placeholder="username" [(ngModel)]="deleteUsername"><br>
+            <button (click)="submitDelete()">Delete</button>
+            <div></div>
 
+        </div>
+        <div *ngSwitchCase="2">Add A User</div>
+        <div *ngSwitchCase="3">Write Some feedback</div>
+        <div *ngSwitchCase="4">Weather Here</div>
+        <div *ngSwitchCase="5">All Weather
+            <div *ngIf="allWeatherBool">
+                <div *ngFor="let weather of allWeatherData">
+                    <p>Weather Date/Time:{{weather.weatherdatetime}} &nbsp;&nbsp; Station Number: {{weather.stationnumber}} &nbsp;&nbsp; Precipitatipn: {{weather.percipitation}}mm &nbsp;&nbsp; Temperature: {{weather.temperature}}c &nbsp;&nbsp; Windspeed:
+                        {{weather.windspeed}}Km/h &nbsp;&nbsp; Humidity: {{weather.humidity}}%</p>
+
+                </div>
+            </div>
+        </div>
+        <div *ngSwitchCase="6">All Users
+            <div *ngIf="allUsersBool">
+                <div *ngFor="let user of allUserData">
+                    <p>First Name:{{user.firstname}} &nbsp;&nbsp; Last Name: {{user.lastname}} &nbsp;&nbsp; Username: {{user.username}} &nbsp;&nbsp; Email: {{user.useremail}} &nbsp;&nbsp; Password: {{user.userpw}}</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </ng-template>

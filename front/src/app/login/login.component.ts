@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import {HttpClient} from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   loginStatus:String;
   lwind="Register";
   lWindStatus=true
-  loggedIn:boolean=false;
+  loggedIn:boolean=true;
 
 authTracker:number=0;
 
@@ -35,9 +36,7 @@ authTracker:number=0;
 setHome(){
   this.authTracker=0;
 }
-setDelete(){
-  this.authTracker=1;
-}
+
 setAddUser(){
   this.authTracker=2;
 }
@@ -47,11 +46,57 @@ setAddFeedback(){
 setWeatherWhereIAm(){
   this.authTracker=4;
 }
-setAllWeather(){
-  this.authTracker=5
-}
-viewAllUsers(){
 
+
+getData(data){
+  return data.result;
+}
+
+
+deleteUsername:String;
+deleteStatus:String;
+submitDelete(){
+
+}
+setDelete(){
+  this.authTracker=1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+allWeatherBool:Boolean=false;
+allWeatherData:any;
+setAllWeather(){
+  this.authTracker=5;
+  this.allUsersBool=false;
+  this.http.get('http://localhost:3000/allweather').subscribe(data=>{
+    this.allWeatherData=this.getData(data);
+    this.allWeatherBool=true;
+  })
+}
+
+
+
+allUsersBool:Boolean=false;
+allUserData:any;
+viewAllUsers(){
+  this.allUsersBool=false;
+  this.authTracker=6;
+  this.http.get('http://localhost:3000/allusers').subscribe(data=>{
+  this.allUserData=this.getData(data);
+  //console.log(this.allUserData)
+  this.allUsersBool=true;
+  })
 }
 
 
