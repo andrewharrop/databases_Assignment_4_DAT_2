@@ -1,0 +1,20 @@
+<div *ngIf="!loggedIn; else bigElse">
+    <button (click)="lSwitch()">{{lwind}}</button>
+    <div *ngIf="lWindStatus; else elseBlock">
+        <input placeholder="username" [(ngModel)]="username">
+        <input placeholder="password" [(ngModel)]="password">
+        <button (click)="submit()">submit</button>
+    </div>
+    <ng-template #elseBlock>
+        <a>First name</a><input [(ngModel)]="firstname" placeholder="First name">
+        <a>Last name</a><input [(ngModel)]="lastname" placeholder="Last name">
+        <a>Username</a><input [(ngModel)]="username2" placeholder="Username">
+        <a>Email</a><input [(ngModel)]="email" placeholder="Email">
+
+        <a>Password</a><input [(ngModel)]="password2" placeholder="Password">
+        <button (click)="register()"></button>
+    </ng-template>
+</div>
+<ng-template #bigElse>
+
+</ng-template>

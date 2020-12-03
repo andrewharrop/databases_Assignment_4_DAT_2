@@ -1,0 +1,31 @@
+<div *ngIf="!loggedIn; else bigElse">
+    <button (click)="lSwitch()">{{lwind}}</button>
+    <div *ngIf="lWindStatus; else elseBlock">
+        username:animelover password:Hentai1
+        <input placeholder="username" [(ngModel)]="username"><br>
+        <input placeholder="password" [(ngModel)]="password"><br>
+        <button (click)="submit()">submit</button>
+        <div>Logged In: {{loggedIn}}</div>
+    </div>
+    <ng-template #elseBlock>
+        <a>First name</a><input [(ngModel)]="firstname" placeholder="First name">
+        <a>Last name</a><input [(ngModel)]="lastname" placeholder="Last name">
+        <a>Username</a><input [(ngModel)]="username2" placeholder="Username">
+        <a>Email</a><input [(ngModel)]="email" placeholder="Email">
+
+        <a>Password</a><input [(ngModel)]="password2" placeholder="Password">
+        <button (click)="register()"></button>
+    </ng-template>
+</div>
+
+<ng-template #bigElse>
+    <button (click)="logout()">log out</button>
+    <nav>
+        <a (click)="setHome(1)">Home</a>
+        <a>B</a>
+
+    </nav>
+    <div>
+
+    </div>
+</ng-template>
